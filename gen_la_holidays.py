@@ -3,5 +3,9 @@ from workalendar.usa import Louisiana
 import json
 cal = Louisiana()
 d = cal.holidays(2015)
+output = []
 for item in d:
-    print item[0]
+    output.append(str(item[0]))
+
+#print output
+print json.dumps(output)
