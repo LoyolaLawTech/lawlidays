@@ -1,4 +1,4 @@
-var genYears = function() {
+var init = function() {
     var d = new Date();
     var n = d.getFullYear();
     var yrs = [];
@@ -9,6 +9,18 @@ var genYears = function() {
     $('#years').attr('data-list',yrs.toString());
 }();
 
+var sendToEmail = function(d){
+
+    console.log($('#results').attr('data'));
+
+},
+
+sendToJSON = function(){
+
+    console.log($('#results').attr('data'));
+    $('#text-display').html('<pre>' + JSON.stringify($('#results').attr('data'), null, '  ') + '</pre>').removeClass('hidden');
+};
+
 $('#years').on('awesomplete-selectcomplete', function() {
     $.ajax({
         type: 'POST',
@@ -16,7 +28,7 @@ $('#years').on('awesomplete-selectcomplete', function() {
         data: {'state': $('#state').val() , 'year': $('#years').val() },
         url: 'http://localhost/server/index.php',
         success: function(d){
-            console.log(d);
+            $('#results').attr('data',d);
             d.forEach(function(item){
                 $('.list-group').append('<li class="list-group-item">' +
                 moment(item[0]).format('MMMM Do YYYY') + ' - ' +
@@ -28,4 +40,11 @@ $('#years').on('awesomplete-selectcomplete', function() {
             console.log(errorText);
         }
     });
+});
+
+$('#email').click(function(e){
+    sendToEmail();
+});
+$('#json').click(function(e){
+    sendToJSON();
 });
