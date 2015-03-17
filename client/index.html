@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/flatly/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/awesomplete.css" rel="stylesheet" type="text/css" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, user-scalable = no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8">
+  <title>Legal Holidays</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">    
+                <h1>Lawlidays</h1>
+                <h4>A simple tool to find out the legal holidays in a U.S. state</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">    
+                <input class="input-lg awesomplete" id="state"  placeholder="Select a State" data-list=" Alabama,
+                Alaska, Arizona, Arkansas, California, Colorado, 
+            Connecticut, Delaware, Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, 
+            Kentucky, Louisiana, Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi,
+            Missouri, Montana Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York,
+            North Carolina, North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania,Rhode Island,
+            South Carolina, South Dakota, Tennessee, Texas, Utah, Vermont, Virginia, Washington,
+            West Virginia, Wisconsin, Wyoming">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">    
+                <input class="input-lg awesomplete" id="years" placeholder="Select a Year" data-list="">
+            </div>
+        </div>
+        <div class="row hidden" id="results">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h1>Results</h1>
+                <div class="panel panel-default">
+                <div class="panel-heading">
+                    <label>Send To:</label>
+                    <button>Google Calendar</button>
+                    <button>Email</button>
+                    <button>JSON</button>
+                    <button>CSV</button>
+                </div>
+                    <ul class="list-group">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="js/awesomplete.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
