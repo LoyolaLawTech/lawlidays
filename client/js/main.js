@@ -18,8 +18,15 @@ var sendToEmail = function(){
     window.open('mailto:?&subject=' +  $('#state').val() + ' ' +
     'Legal Holidays ' + $('#years').val() + '&body=' +  resultsText);
 },
-sendToJSON = function(){
+sendToJSON = function() {
     $('#text-display').html('<pre>' + JSON.stringify(JSONstore,null,2) + '</pre>').removeClass('hidden');
+},
+sendToCSV = function() {
+    var resultsText = 'Date, Holiday\n';
+    JSONstore.forEach(function(v) {
+        resultsText += moment(v[0]).format('MMMM Do YYYY') + ',' + v[1] + '\n';
+    });
+    $('#text-display').html('<pre>' + resultsText + '</pre>').removeClass('hidden');
 },
 storeJSON = function(d) {
     JSONstore = d;
@@ -28,6 +35,7 @@ resetAll = function() {
     $('#results').addClass('hidden');
     $('ul').children().remove();
     $('input').val('');
+    $('pre').text('').addClass('hidden');
 };
 
 $('#years').on('awesomplete-selectcomplete', function() {
@@ -57,6 +65,9 @@ $('#email').click(function(e){
 });
 $('#json').click(function(e){
     sendToJSON();
+});
+$('#csv').click(function(e){
+    sendToCSV();
 });
 $('#reset').click(function(e){
     resetAll();
