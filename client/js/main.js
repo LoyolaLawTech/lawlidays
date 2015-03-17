@@ -9,16 +9,25 @@ var init = function() {
     $('#years').attr('data-list',yrs.toString());
 }();
 
-var sendToEmail = function(d){
-
-    console.log($('#results').attr('data'));
-
+var JSONstore;
+var sendToEmail = function(){
+    var resultsText = '';
+    JSONstore.forEach(function(v) {
+        resultsText += moment(v[0]).format('MMMM Do YYYY') + ' - ' + v[1] + '%0A';
+    });
+    window.open('mailto:?&subject=' +  $('#state').val() + ' ' +
+    'Legal Holidays ' + $('#years').val() + '&body=' +  resultsText);
 },
-
 sendToJSON = function(){
-
-    console.log($('#results').attr('data'));
-    $('#text-display').html('<pre>' + JSON.stringify($('#results').attr('data'), null, '  ') + '</pre>').removeClass('hidden');
+    $('#text-display').html('<pre>' + JSON.stringify(JSONstore,null,2) + '</pre>').removeClass('hidden');
+},
+storeJSON = function(d) {
+    JSONstore = d;
+},
+resetAll = function() {
+    $('#results').addClass('hidden');
+    $('ul').children().remove();
+    $('input').val('');
 };
 
 $('#years').on('awesomplete-selectcomplete', function() {
@@ -28,7 +37,8 @@ $('#years').on('awesomplete-selectcomplete', function() {
         data: {'state': $('#state').val() , 'year': $('#years').val() },
         url: 'http://localhost/server/index.php',
         success: function(d){
-            $('#results').attr('data',d);
+            //$('#results').attr('data',d);
+            storeJSON(d);
             d.forEach(function(item){
                 $('.list-group').append('<li class="list-group-item">' +
                 moment(item[0]).format('MMMM Do YYYY') + ' - ' +
@@ -47,4 +57,7 @@ $('#email').click(function(e){
 });
 $('#json').click(function(e){
     sendToJSON();
+});
+$('#reset').click(function(e){
+    resetAll();
 });
