@@ -1,3 +1,14 @@
+/*
+"Constants". If you are doing your own implimentation of this, you will
+have to replace these values with your own. Google API Keys and oAuth 
+available at http://developers.google.com
+*/
+var CLIENTID = '866878723627-ti2jtpa6rn1ugrfup8s6k3trjsogd6fs.apps.googleusercontent.com',
+      APIKEY = 'AIzaSyCcSxmwLYdDSRs3PNffIWTSwLPHNPHnwNU',
+      SCOPES = 'https://www.googleapis.com/auth/calendar',
+     APP_URL = 'http://judsonmitchell.github.io/lawlidays',
+  SERVER_URL = 'http://localhost/server';
+
 var init = function() {
     var d = new Date();
     var n = d.getFullYear();
@@ -7,10 +18,11 @@ var init = function() {
         yrs.push(n++);
     }
     $('#years').attr('data-list',yrs.toString());
+
 }();
 
-var JSONstore;
-var sendToEmail = function(){
+var JSONstore,
+sendToEmail = function(){
     var resultsText = '';
     JSONstore.forEach(function(v) {
         resultsText += moment(v[0]).format('MMMM Do YYYY') + ' - ' + v[1] + '%0A';
@@ -22,9 +34,9 @@ sendToJSON = function() {
     $('#text-display').html('<pre>' + JSON.stringify(JSONstore,null,2) + '</pre>').removeClass('hidden');
 },
 sendToCSV = function() {
-    var resultsText = 'Date, Holiday\n';
+    var resultsText = 'Subject, Start Date\n';
     JSONstore.forEach(function(v) {
-        resultsText += moment(v[0]).format('MMMM Do YYYY') + ',' + v[1] + '\n';
+        resultsText += moment(v[0]).format('MM/DD/YY') + ',' + v[1] + '\n';
     });
     $('#text-display').html('<pre>' + resultsText + '</pre>').removeClass('hidden');
 },
@@ -36,6 +48,61 @@ resetAll = function() {
     $('ul').children().remove();
     $('input').val('');
     $('pre').text('').addClass('hidden');
+    JSONstore = null;
+},
+//Handle Google Calendar Auth
+handleClientLoad = function (){
+    gapi.client.setApiKey(APIKEY);
+    window.setTimeout(checkAuth,1);
+},
+checkAuth = function () {
+    gapi.auth.authorize({client_id: CLIENTID, scope: SCOPES, immediate: true}, handleAuthResult);
+},
+handleAuthResult = function(authResult) {
+    //var authorizeButton = document.getElementById('authorize-button');
+    if (authResult && !authResult.error) {
+        //authorizeButton.style.visibility = 'hidden';
+        makeApiCall();
+    } else {
+        //authorizeButton.style.visibility = '';
+        //authorizeButton.onclick = handleAuthClick;
+    }
+},
+handleAuthClick = function (event) {
+    gapi.auth.authorize({client_id: CLIENTID, scope: SCOPES, immediate: false}, handleAuthResult);
+    return false;
+},
+makeApiCall = function () {
+    gapi.client.load('calendar', 'v3', function() {
+        var createCalendar = gapi.client.calendar.calendars.insert({
+            'summary': $('#years').val() + ' Legal Holidays for ' + $('#state').val()
+        });
+        createCalendar.execute(function(resp) {
+            var addEvents = function (item) {
+                var request = gapi.client.calendar.events.insert({
+                    'calendarId': resp.id,
+                    'end': { 'date': item[0] },
+                    'start': { 'date': item[0] },
+                    'description': 'Legal Holiday in ' + $('#state').val() +
+                    '. Created by Lawlidays: ' + APP_URL,
+                    'creator': {
+                        'displayName': 'Lawlidays'
+                    },
+                    'summary': item[1]
+                });
+                request.then(function (response){
+                    console.log(response);
+                },function(reason){
+                    console.log(reason);
+                });
+            };
+
+            JSONstore.forEach(function (item){
+                addEvents(item);
+            });
+
+        });
+    });
 };
 
 $('#years').on('awesomplete-selectcomplete', function() {
@@ -43,9 +110,8 @@ $('#years').on('awesomplete-selectcomplete', function() {
         type: 'POST',
         dataType: 'json',
         data: {'state': $('#state').val() , 'year': $('#years').val() },
-        url: 'http://localhost/server/index.php',
+        url: SERVER_URL + '/index.php',
         success: function(d){
-            //$('#results').attr('data',d);
             storeJSON(d);
             d.forEach(function(item){
                 $('.list-group').append('<li class="list-group-item">' +
@@ -68,6 +134,9 @@ $('#json').click(function(e){
 });
 $('#csv').click(function(e){
     sendToCSV();
+});
+$('#gc').click(function(e){
+    handleAuthClick();
 });
 $('#reset').click(function(e){
     resetAll();
