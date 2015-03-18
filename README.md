@@ -3,6 +3,9 @@
 A simple tool to generate a list of legal holidays in any U.S. state 
 in any given year. Relies on [Novapost's Workalender toolkit](https://github.com/novapost/workalendar).
 
+This project was created as part of the [Technology and Legal Innovation Clinic](http://loyolalawtech.org)
+of the [Loyola College of Law, New Orleans](http://law.loyno.edu)
+
 Demo is [available here](http://loyolalawtech.org/lawlidays/)
 
 ## Install
@@ -35,7 +38,7 @@ which returns the output of lawlidays.py
 
 ### Client
 
-Client requires having an API key and oAuth credentials for Google Calendar, 
+Client requires having an API key and oAuth credentials for Google Calendar. 
 
 ##License (MIT)
 
