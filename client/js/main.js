@@ -117,7 +117,7 @@ $('#years').on('awesomplete-selectcomplete', function() {
     $.ajax({
         type: 'POST',
         dataType: 'json',
-        data: {'state': $('#state').val() , 'year': $('#years').val() },
+        data: {'state': $('#state').val().replace(' ','') , 'year': $('#years').val() },
         url: SERVER_URL + '/index.php',
         success: function(d){
             storeJSON(d);
