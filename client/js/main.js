@@ -49,6 +49,7 @@ resetAll = function() {
     $('ul').children().remove();
     $('input').val('');
     $('pre').text('').addClass('hidden');
+    $('#gc').children().remove();
     JSONstore = null;
 },
 //Handle Google Calendar Auth
