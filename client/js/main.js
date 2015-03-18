@@ -22,6 +22,7 @@ var init = function() {
 }();
 
 var JSONstore,
+numRequests = 0,
 sendToEmail = function(){
     var resultsText = '';
     JSONstore.forEach(function(v) {
@@ -59,13 +60,9 @@ checkAuth = function () {
     gapi.auth.authorize({client_id: CLIENTID, scope: SCOPES, immediate: true}, handleAuthResult);
 },
 handleAuthResult = function(authResult) {
-    //var authorizeButton = document.getElementById('authorize-button');
     if (authResult && !authResult.error) {
-        //authorizeButton.style.visibility = 'hidden';
+        $('#gc').append(' <i class="fa fa-spinner" style="color:red"></i>');
         makeApiCall();
-    } else {
-        //authorizeButton.style.visibility = '';
-        //authorizeButton.onclick = handleAuthClick;
     }
 },
 handleAuthClick = function (event) {
@@ -78,7 +75,8 @@ makeApiCall = function () {
             'summary': $('#years').val() + ' Legal Holidays for ' + $('#state').val()
         });
         createCalendar.execute(function(resp) {
-            var addEvents = function (item) {
+            var addEvents = function (item, index, array) {
+                var apiError = false;
                 var request = gapi.client.calendar.events.insert({
                     'calendarId': resp.id,
                     'end': { 'date': item[0] },
@@ -91,14 +89,24 @@ makeApiCall = function () {
                     'summary': item[1]
                 });
                 request.then(function (response){
-                    console.log(response);
+                    numRequests++;
+                    if (numRequests === array.length && !apiError){
+                        $('#gc').children().remove();
+                        $('#gc').append('<i class="fa fa-check" style="color:green"></i>');
+                    }
                 },function(reason){
+                    numRequests++;
+                    if (reason){
+                        apiError = true;
+                        $('#gc').children().remove();
+                        $('#gc').append('<i class="fa fa-check" style="color:red"></i>');
+                    }
                     console.log(reason);
                 });
             };
 
-            JSONstore.forEach(function (item){
-                addEvents(item);
+            JSONstore.forEach(function (item,index,array){
+                addEvents(item, index, array);
             });
 
         });
