@@ -1,7 +1,7 @@
 # Lawlidays 
 
-A simple tool to generate a list of legal holidays in any U.S. State 
-in any given year. Relies on [Novapost's Workalender library](https://github.com/novapost/workalendar).
+A simple tool to generate a list of legal holidays in any U.S. state 
+in any given year. Relies on [Novapost's Workalender toolkit](https://github.com/novapost/workalendar).
 
 Demo is [available here](http://loyolalawtech.org/lawlidays/)
 
