@@ -62,7 +62,7 @@ checkAuth = function () {
 },
 handleAuthResult = function(authResult) {
     if (authResult && !authResult.error) {
-        $('#gc').append(' <i class="fa fa-spinner" style="color:red"></i>');
+        $('#gc').append(' <i class="fa fa-spinner fa-spin" style="color:red"></i>');
         makeApiCall();
     }
 },
