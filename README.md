@@ -35,7 +35,7 @@ which returns the output of lawlidays.py
 
 ### Client
 
-[in progress]
+Client requires having an API key and oAuth credentials for Google Calendar, 
 
 ##License (MIT)
 
