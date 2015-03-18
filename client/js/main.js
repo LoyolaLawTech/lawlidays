@@ -7,7 +7,7 @@ var CLIENTID = '866878723627-ti2jtpa6rn1ugrfup8s6k3trjsogd6fs.apps.googleusercon
       APIKEY = 'AIzaSyCcSxmwLYdDSRs3PNffIWTSwLPHNPHnwNU',
       SCOPES = 'https://www.googleapis.com/auth/calendar',
      APP_URL = 'http://loyolalawtech.org/lawlidays',
-  SERVER_URL = 'http://loyolalawtech.org';
+  SERVER_URL = 'http://loyolalawtech.org/lawlidays/server';
 
 var init = function() {
     var d = new Date();
