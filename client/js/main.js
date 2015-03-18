@@ -6,7 +6,7 @@ available at http://developers.google.com
 var CLIENTID = '866878723627-ti2jtpa6rn1ugrfup8s6k3trjsogd6fs.apps.googleusercontent.com',
       APIKEY = 'AIzaSyCcSxmwLYdDSRs3PNffIWTSwLPHNPHnwNU',
       SCOPES = 'https://www.googleapis.com/auth/calendar',
-     APP_URL = 'http://judsonmitchell.github.io/lawlidays',
+     APP_URL = 'http://loyolalawtech.org/lawlidays',
   SERVER_URL = 'http://localhost/server';
 
 var init = function() {
@@ -15,7 +15,7 @@ var init = function() {
     var yrs = [];
     yrs.push(n);
     for (var i = 0, l = 100; i < l; i ++) {
-        yrs.push(n++);
+        yrs.push(++n);
     }
     $('#years').attr('data-list',yrs.toString());
 
