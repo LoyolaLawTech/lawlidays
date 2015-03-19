@@ -4,21 +4,21 @@ A simple tool to generate a list of legal holidays in any U.S. state
 in any given year. Relies on [Novapost's Workalender toolkit](https://github.com/novapost/workalendar).
 
 This project was created as part of the [Technology and Legal Innovation Clinic](http://loyolalawtech.org)
-of the [Loyola College of Law, New Orleans](http://law.loyno.edu)
+of the [Loyola College of Law, New Orleans](http://law.loyno.edu).
 
-Demo is [available here](http://loyolalawtech.org/lawlidays/)
+Demo is [available here](http://loyolalawtech.org/lawlidays/).
 
 ## Install
 
 ### Server
-Install Workalender on your server
+Install Workalender on your server:
 
 ```
 git clone https://github.com/novapost/workalendar.git
 python setup.py install
 ```
 
-Setup is likely to require python-dev
+Setup is likely to require python-dev:
 ```
 sudo apt-get install python-dev
 ```
@@ -34,11 +34,12 @@ python lawlidays -s [Full Name of State] -y [FOUR DIGIT YEAR]
 The script will return json with the relevant dates and name of the holidays.
 
 If you wish to call the script from the web, there is a php wrapper (server/index.php)
-which returns the output of lawlidays.py
+which returns the output of lawlidays.py.
 
 ### Client
 
-Client requires having an API key and oAuth credentials for Google Calendar. 
+Client side code requires having an API key and oAuth credentials for Google Calendar, available
+at [Google Developers Console](https://console.developers.google.com). 
 
 ##License (MIT)
 
