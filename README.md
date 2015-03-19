@@ -38,7 +38,8 @@ which returns the output of lawlidays.py.
 
 ### Client
 
-Client requires having an API key and oAuth credentials for Google Calendar. 
+Client side code requires having an API key and oAuth credentials for Google Calendar, available
+at [Google Developers Console](https://console.developers.google.com). 
 
 ##License (MIT)
 
